@@ -1,8 +1,10 @@
+%-------------------------------------------------------------------------------------
 % Align/Correct the parameters for linear/logistic regression.
 % 
 %  X should be a m*(n+1) matrix
 %  y should be a m*1 vector
 %  theta should be a (n+1)*1 vector
+%-------------------------------------------------------------------------------------
 
 function [X,y,theta] = paramAlign(X, y, theta)
 	if size(X,1) < size(X,2)

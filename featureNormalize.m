@@ -8,6 +8,7 @@
 
 
 function [X_norm, mu, sigma] = featureNormalize(X)
+
 	trans = false;
 
 	if size(X,1) < size(X,2)

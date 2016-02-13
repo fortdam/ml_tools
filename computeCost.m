@@ -6,7 +6,7 @@
 %
 %   X: is the m*n matrix contains m samples with n features
 %   y: is the m*1 vecter contain value of training samples
-%   theta: is the (n+1)*1 vector contains the current theta value. 
+%   theta: is the (n+1)*1 vector contains the current/initial theta value. 
 %   lambda: is the regularization param
 %   type: "linear" or "logistic"
 %  
@@ -20,25 +20,21 @@ function [J, grad] = computeCost(X, y, theta, lambda, type)
 
 		m = length(y);
 
-		hypothesis = zeros(m,1);
-		J = 0;
-
-		if(strcmpi('logistic')){
+		if strcmpi(type, 'logistic')
 			hypothesis = sigmoid(X*theta);
 			J =  sum(-1*(y.*log(hypothesis) + (1-y).*log(1-hypothesis)))/m;
-		}
-		else {
+		else 
 			hypothesis = X*theta;  %Linear regresssion
 			J = sum((hypothesis - y) .^ 2) / (2*m);
-		}
+		end
 
 		grad = (X' * (hypothesis - y))/m;
 
 		%Regularize
-		regTheta = [0; theta([2:end],:)];  %Regularization theta, ignore the first value
+		regTheta = [0; theta(2:end,:)];  %Regularization theta, ignore the first value
 
-		J += lambda*sum(regTheta .^ 2)/(2*m)
-		grad += (lambda/m)*regTheta
+		J = J + lambda*sum(regTheta .^ 2)/(2*m);
+		grad = grad + (lambda/m)*regTheta;
 
 	catch err
 		J = -1;

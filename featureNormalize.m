@@ -1,13 +1,19 @@
+function [X_norm, mu, sigma] = featureNormalize(X)
 %-------------------------------------------------------------------------------------
-%FEATURENORMALIZE Normalizes the features in X 
+%featureNormalize Normalizes the features in X 
 %   FEATURENORMALIZE(X) returns a normalized version of X where
 %   the mean value of each feature is 0 and the standard deviation
 %   is 1. This is often a good preprocessing step to do when
 %   working with learning algorithms.
+%
+%   [X_norm] = the normalized features,it is a m*n array, in which every
+%       value is (x-mu)/sigma
+%   [mu] = the mean value of the features, it is a 1*n vector
+%   [sigma] = the sigma(standard difference value) of the features, it is a 1*n vector
+%
+%   [X]: the input features of the training samples
 %-------------------------------------------------------------------------------------
 
-
-function [X_norm, mu, sigma] = featureNormalize(X)
 
 	trans = false;
 

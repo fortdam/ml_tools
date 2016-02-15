@@ -1,4 +1,4 @@
-function [ theta, J_history ] = quickDescent( X, y, type, lambda, maxIter)
+function [ predictFunc, cost ] = multiDescent( X, y, lambda, maxIter)
 %-------------------------------------------------------------------------
 % quickDescent performs the advanced descent (fminunc)
 %   [theta] = the final theta calculatd out
@@ -9,16 +9,31 @@ function [ theta, J_history ] = quickDescent( X, y, type, lambda, maxIter)
 %   [initial_theta]: is the (n+1)*1 vector contains the current/initial theta value. 
 %   [lambda]: is the regularization param
 %   [type]: "linear" or "logistic"
-%   [maxIter]: The max iteration to perform
 %  
 %   Note: if the dimension of X,y,theta is not correct (X,Y dim-inversed), we will correct it
 %-------------------------------------------------------------------------
 
+
 	if(size(X,1) < size(X,2))
 		X = X';
 	end
-    
-    options = optimset('GradObj', 'on', 'MaxIter', maxIter); %options = optimset('GradObj', 'on', 'MaxIter', 400);
-    [theta, J_history] = fmincg(@(t)computeCost(X, y, t, lambda,type),zeros(size(X,2)+1, 1),options)  %or replace fmincg with fminunc
-end
 
+	if(size(y,1) < size(y,2))
+		y = y';
+	end
+
+	classes = unique(y);
+
+	theta = zeros(size(X,2)+1, length(classes));
+	cost = zeros(length(classes));
+
+
+	for iter=1:length(classes)
+		disp(['Train classifier ', int2str(iter)]);
+		[tt, cc] = quickDescent(X, y==classes(iter), 'logistic', lambda, maxIter);
+		theta(:,iter) = tt;
+		cost(iter) = min(cc);
+	end
+    
+    predictFunc = @(xx)classifyNorm(xx, 0, 1, theta);
+end

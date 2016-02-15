@@ -1,4 +1,4 @@
-function [ predictFunc, cost ] = quickDescentNorm( X, y, initial_theta, type, lambda)
+function [ predictFunc, J_history ] = quickDescentNorm( X, y, type, lambda, maxIter)
 %-------------------------------------------------------------------------
 % quickDescentNorm is similar to quickDescent(), however it will
 % perform feature normalization for the training samples. Instead of
@@ -8,9 +8,9 @@ function [ predictFunc, cost ] = quickDescentNorm( X, y, initial_theta, type, la
 %-------------------------------------------------------------------------
 
     [X, mu, sigma] = featureNormalize(X);
-    
-    options = optimset('GradObj', 'on'); %options = optimset('GradObj', 'on', 'MaxIter', 400);
-    [theta, cost] = fminunc(@(t)computeCost(X, y, t, lambda,type),initial_theta,options);
+
+    options = optimset('GradObj', 'on', 'MaxIter', maxIter); %options = optimset('GradObj', 'on', 'MaxIter', 400);
+    [theta, J_history] = fmincg(@(t)computeCost(X, y, t, lambda,type),zeros(size(X,2)+1,1),options);  %Might use fminunc to replace fmincg
     
     predictFunc = @(xx)predictNorm(xx, mu, sigma, theta, type);
 end

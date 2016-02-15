@@ -35,5 +35,4 @@ function [J, grad] = computeCost(X, y, theta, lambda, type)
 
     J = J + lambda*sum(regTheta .^ 2)/(2*m);
     grad = grad + (lambda/m)*regTheta;
-
 end

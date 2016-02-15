@@ -1,4 +1,4 @@
-function [theta, J_history] = gradientDescent(X, y, theta, lambda, type, alpha, num_iters)
+function [theta, J_history] = gradientDescent(X, y, lambda, type, alpha, num_iters)
 %-------------------------------------------------------------------------
 % gradientDescent performs the gradient descent
 %   [theta] = the final theta calculatd out
@@ -16,8 +16,14 @@ function [theta, J_history] = gradientDescent(X, y, theta, lambda, type, alpha, 
 %   Note: if the dimension of X,y,theta is not correct (X,Y dim-inversed), we will correct it
 %-------------------------------------------------------------------------
 
-  for iter = 1:num_iters
-    [J_history(iter), grad] = computeCost(X, y, theta, lambda, type);
-    theta = theta - alpha * grad;
-  end
+	if(size(X,1) < size(X,2))
+		X = X';
+	end
+
+	theta = zeros(size(X,2)+1, 1);
+
+	for iter = 1:num_iters
+		[J_history(iter), grad] = computeCost(X, y, theta, lambda, type);
+		theta = theta - alpha * grad;
+	end
 end

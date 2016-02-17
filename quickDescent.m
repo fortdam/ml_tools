@@ -1,4 +1,8 @@
-function [ theta, J_history ] = quickDescent( X, y, type, lambda, maxIter)
+function [ theta, J_history ] = quickDescent( X, ...
+											  y, ...
+											  ctype, ...
+											  lambda, ...
+											  maxIter)
 %-------------------------------------------------------------------------
 % quickDescent performs the advanced descent (fminunc)
 %   [theta] = the final theta calculatd out
@@ -8,7 +12,7 @@ function [ theta, J_history ] = quickDescent( X, y, type, lambda, maxIter)
 %   [y]: is the m*1 vecter contain value of training samples
 %   [initial_theta]: is the (n+1)*1 vector contains the current/initial theta value. 
 %   [lambda]: is the regularization param
-%   [type]: "linear" or "logistic"
+%   [ctype]: "linear" or "logistic"
 %   [maxIter]: The max iteration to perform
 %  
 %   Note: if the dimension of X,y,theta is not correct (X,Y dim-inversed), we will correct it
@@ -19,6 +23,6 @@ function [ theta, J_history ] = quickDescent( X, y, type, lambda, maxIter)
 	end
     
     options = optimset('GradObj', 'on', 'MaxIter', maxIter); %options = optimset('GradObj', 'on', 'MaxIter', 400);
-    [theta, J_history] = fmincg(@(t)computeCost(X, y, t, lambda,type),zeros(size(X,2)+1, 1),options)  %or replace fmincg with fminunc
+    [theta, J_history] = fmincg(@(t)computeCost(X, y, t, lambda,ctype),zeros(size(X,2)+1, 1),options)  %or replace fmincg with fminunc
 end
 

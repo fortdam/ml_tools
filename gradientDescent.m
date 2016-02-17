@@ -1,4 +1,9 @@
-function [theta, J_history] = gradientDescent(X, y, lambda, type, alpha, num_iters)
+function [theta, J_history] = gradientDescent(X, ...
+											  y, ...
+											  lambda, ...
+											  ctype, ...
+											  alpha, ...
+											  num_iters)
 %-------------------------------------------------------------------------
 % gradientDescent performs the gradient descent
 %   [theta] = the final theta calculatd out
@@ -9,7 +14,7 @@ function [theta, J_history] = gradientDescent(X, y, lambda, type, alpha, num_ite
 %   [y]: is the m*1 vecter contain value of training samples
 %   [theta]: is the (n+1)*1 vector contains the current/initial theta value. 
 %   [lambda]: is the regularization param
-%   [type]: "linear" or "logistic"
+%   [ctype]: "linear" or "logistic"
 %   [alpha]: the step to go for each descent
 %   [num_iters]: number of iterations to perform
 %  
@@ -23,7 +28,7 @@ function [theta, J_history] = gradientDescent(X, y, lambda, type, alpha, num_ite
 	theta = zeros(size(X,2)+1, 1);
 
 	for iter = 1:num_iters
-		[J_history(iter), grad] = computeCost(X, y, theta, lambda, type);
+		[J_history(iter), grad] = computeCost(X, y, theta, lambda, ctype);
 		theta = theta - alpha * grad;
 	end
 end

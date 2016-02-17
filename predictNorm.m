@@ -1,4 +1,8 @@
-function result = predictNorm( x, mu, sigma, theta, type )
+function result = predictNorm( x, ...
+                               mu, ...
+                               sigma, ...
+                               theta, ...
+                               ctype )
 %-------------------------------------------------------------------------
 % predictNorm predict the value with trained weights+bias(theta) and
 % normalized factors
@@ -6,7 +10,7 @@ function result = predictNorm( x, mu, sigma, theta, type )
 %   [mu] = the mean value for the feature (calc by featureNormalize)
 %   [sigma] = the std variance for the feature (calc by featureNormalize)
 %   [theta] = the theta/classifier trained
-%   [type] = 'linear' or 'logistic'
+%   [ctype] = 'linear' or 'logistic'
 %
 %   [result]: the value predited
 %-------------------------------------------------------------------------
@@ -25,7 +29,7 @@ function result = predictNorm( x, mu, sigma, theta, type )
 
     x(2:end) = (x(2:end)-mu)./sigma;
 
-    if strcmpi(type, 'logistic')
+    if strcmpi(ctype, 'logistic')
         result = sigmoid(x*theta);
     else
         result = x*theta;

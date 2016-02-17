@@ -1,4 +1,9 @@
-function [predictFunc, J_history] = gradientDescentNorm(X, y, lambda, type, alpha, num_iters)
+function [predictFunc, J_history] = gradientDescentNorm( X, ...
+														 y, ...
+														 lambda, ...
+														 ctype, ...
+														 alpha, ...
+														 num_iters)
 %-------------------------------------------------------------------------
 % gradientDescentNorm is similar to gradientDescent(), however it will
 % perform feature normalization for the training samples. Instead of
@@ -9,8 +14,8 @@ function [predictFunc, J_history] = gradientDescentNorm(X, y, lambda, type, alph
   
   [X, mu, sigma] = featureNormalize(X);
   
-  [theta, J_history] = gradientDescent(X, y, zeros(size(X,2)+1,1), lambda, type, alpha, num_iters);
+  [theta, J_history] = gradientDescent(X, y, zeros(size(X,2)+1,1), lambda, ctype, alpha, num_iters);
   
-  predictFunc = @(xx)predictNorm(xx, mu, sigma, theta, type);
+  predictFunc = @(xx)predictNorm(xx, mu, sigma, theta, ctype);
 end
 

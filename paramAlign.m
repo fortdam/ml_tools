@@ -1,4 +1,6 @@
-function [X,y,theta] = paramAlign(X, y, theta)
+function [X,y,theta] = paramAlign( X, ...
+								   y, ...
+								   theta )
 %-----------------------------------------------------------------------
 % paramAlign align/correct the parameters for linear and logistic regression.
 % 

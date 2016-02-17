@@ -1,4 +1,7 @@
-function [ predictFunc, cost ] = multiDescent( X, y, lambda, maxIter)
+function [ predictFunc, cost ] = multiDescent( X, ...
+											   y, ...
+											   lambda, 
+											   maxIter )
 %-------------------------------------------------------------------------
 % quickDescent performs the advanced descent (fminunc)
 %   [theta] = the final theta calculatd out
@@ -8,7 +11,7 @@ function [ predictFunc, cost ] = multiDescent( X, y, lambda, maxIter)
 %   [y]: is the m*1 vecter contain value of training samples
 %   [initial_theta]: is the (n+1)*1 vector contains the current/initial theta value. 
 %   [lambda]: is the regularization param
-%   [type]: "linear" or "logistic"
+%   [maxIter]: the maximum iteration numberz
 %  
 %   Note: if the dimension of X,y,theta is not correct (X,Y dim-inversed), we will correct it
 %-------------------------------------------------------------------------
